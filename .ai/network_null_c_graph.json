@@ -47,7 +47,7 @@
         }
     },
     "activations_alignment": 4,
-    "arguments": "generate --target stm32f4 --name network -m E:/ST_Workspace/HandPosture_LED/CNN2D_ST_HandPosture_8classes.h5 --compression none --verbosity 1 --allocate-inputs --allocate-outputs --workspace C:/Users/LeeJH/AppData/Local/Temp/mxAI_workspace133153703828380016988574281222036701 --output C:/Users/LeeJH/.stm32cubemx/network_output",
+    "arguments": "generate --target stm32f4 --name network -m E:/ST_Workspace/HandPosture_LED/CNN2D_ST_HandPosture_8classes.h5 --compression none --verbosity 1 --allocate-inputs --allocate-outputs --workspace C:/Users/LeeJH/AppData/Local/Temp/mxAI_workspace11111184552840014352266671555334912 --output C:/Users/LeeJH/.stm32cubemx/network_output",
     "c_activations_count": 1,
     "c_arrays": [
         {
@@ -560,7 +560,7 @@
         ]
     },
     "data_alignment": 4,
-    "date_time": "Tue Jul  2 01:08:37 2024",
+    "date_time": "Fri Jul  5 00:06:00 2024",
     "inputs": [
         "input_1_output"
     ],

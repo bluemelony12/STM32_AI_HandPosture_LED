@@ -64,9 +64,7 @@
 #define RESOLUTION_16                             (16)
 /* To select strongest (default) or closest target first */
 #define DEV_PSORT_CFG_IDX                         ((uint16_t) 0xae64)
-/* Definition of default Gesture algo settings */
-#define DEFAULT_GESTURE_APP_RANGING_PERIOD        (100)
-#define DEFAULT_GESTURE_APP_INTEGRATION_TIME      (10)
+
 #define MAX_COMMAND_BUFFER_SIZE 776
 
 /* Exported types ------------------------------------------------------------*/
@@ -178,14 +176,38 @@ struct fw_grp__analogue_dynamic_t {
 };
 
 struct Params_t {
-  /* Enable a specific data logging on the Uart for the GUI */
-  int gesture_gui;
-  /* Sensor resolution, only 64 is available */
-  uint32_t Resolution;
-  /* Ranging period in ms */
-  int RangingPeriod;
-  /* Integration time in ms */
-  int IntegrationTime;
+	int gesture_gui;				// Enable a specific data logging on the Uart for the GUI
+	uint32_t Resolution;			// Sensor resolution, only 64 is available
+	int RangingPeriod;				// Ranging period in ms
+	int IntegrationTime;			// Integration time in ms
+	int SensorOrientation;			// See User Manual
+	int ranging_ignore_dmax_mm; 	// Any range above this value is not considered by the gesture library
+	//Level Control algo tuning parameters
+	float lc_stable_threshold;		// Speed Threshold to detect a stable hand
+	long lc_stable_time_threshold;	// Duration to detect a stable hand
+	int lc_maxDistance_mm;			// Distance associated to 100% Level Control
+	int lc_minDistance_mm;			// Distance associated to 0% Level Control
+	//Gesture Algo tuning params
+	int gesture_selection;			// Only 0 supported : Horizontal SWIPES(Right/Left) + TAP  + Double TAP // More gesture coming soon
+	long double_tap_ts_threshold;	// Max duration 2 TAPs (msec)
+	int screening_ms;       		// Duration needed with no other prediction to lock current
+    int analysis_ms;        		// Time window to compute speed in ms
+	int dead_ms;            		// Duration which no new gesture can be predicted
+	int closer_mm;					// Min distance difference to declare a new motion as "closer"
+	int min_speed_x_mm_s;			// Vx speed Threshold (mm/s)
+	int min_speed_y_mm_s;			// Vy speed Threshold (mm/s)
+	int min_speed_z_mm_s;			// Vz speed Threshold (mm/s)
+	int max_speed_mm_s;				// Max Speed for a valid motion
+	float min_vx_vy;				// Threshold Ratio VX vs VY
+	float min_vx_vz;				// Threshold Ratio VX vs VZ
+	float min_vy_vx;				// Threshold Ratio VY vs VX
+	float min_vy_vz;				// Threshold Ratio VY vs VZ
+	float min_vz_vx;				// Threshold Ratio VZ vs VX
+	float min_vz_vy;				// Threshold Ratio VZ vs VY
+	//User Filtering
+	int min_user_filtering_mm;		// min distance to locate the user
+	int max_user_filtering_mm;		// max distance to locate the user
+	int filtering_area_mm;			// area ahead the user where gestures will be filtered
 };
 
 typedef struct {
