@@ -15,6 +15,7 @@
 
 int gesture_library_init_configure(void);
 int SEN_CopyRangingData(SEN_data_t* pDest, VL53LMZ_ResultsData *pRangingData);
-void Gesture_print_uart();
+void Gesture_print_uart(void);
+void Gesture_RGB_Control_Process(void);
 
 #endif /* INC_GESTURES_EXAMPLE_H_ */

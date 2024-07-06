@@ -1,30 +1,30 @@
 STEdgeAI Core v9.0.0-19802
-Created date          : 2024-07-05 00:06:01
-Parameters            : generate --target stm32f4 --name network -m E:/ST_Workspace/HandPosture_LED/CNN2D_ST_HandPosture_8classes.h5 --compression none --verbosity 1 --allocate-inputs --allocate-outputs --workspace C:/Users/LeeJH/AppData/Local/Temp/mxAI_workspace11111184552840014352266671555334912 --output C:/Users/LeeJH/.stm32cubemx/network_output
+Created date          : 2024-07-05 23:45:23
+Parameters            : generate --target stm32f4 --name network -m E:/ST_Workspace/HandPosture_LED/CNN2D_ST_HandPosture_8classes.h5 --compression none --verbosity 1 --allocate-inputs --allocate-outputs --workspace C:/Users/LeeJH/AppData/Local/Temp/mxAI_workspace1962839430877005029411788835159001 --output C:/Users/LeeJH/.stm32cubemx/network_output
 
 Exec/report summary (generate)
--------------------------------------------------------------------------------------------------------------
-model file         :   E:\ST_Workspace\HandPosture_LED\CNN2D_ST_HandPosture_8classes.h5                      
-type               :   keras                                                                                 
-c_name             :   network                                                                               
-compression        :   none                                                                                  
-options            :   allocate-inputs, allocate-outputs                                                     
-optimization       :   balanced                                                                              
-target/series      :   stm32f4                                                                               
-workspace dir      :   C:\Users\LeeJH\AppData\Local\Temp\mxAI_workspace11111184552840014352266671555334912   
-output dir         :   C:\Users\LeeJH\.stm32cubemx\network_output                                            
-model_fmt          :   float                                                                                 
-model_name         :   CNN2D_ST_HandPosture_8classes                                                         
-model_hash         :   0x207d3ca54e61755a72f3aed4ddf9d415                                                    
-params #           :   2,752 items (10.75 KiB)                                                               
--------------------------------------------------------------------------------------------------------------
-input 1/1          :   'input_1', f32(1x8x8x2), 512 Bytes, activations                                       
-output 1/1         :   'dense_1', f32(1x8), 32 Bytes, activations                                            
-macc               :   8,520                                                                                 
-weights (ro)       :   11,008 B (10.75 KiB) (1 segment)                                                      
-activations (rw)   :   1,024 B (1024 B) (1 segment) *                                                        
-ram (total)        :   1,024 B (1024 B) = 1,024 + 0 + 0                                                      
--------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+model file         :   E:\ST_Workspace\HandPosture_LED\CNN2D_ST_HandPosture_8classes.h5                     
+type               :   keras                                                                                
+c_name             :   network                                                                              
+compression        :   none                                                                                 
+options            :   allocate-inputs, allocate-outputs                                                    
+optimization       :   balanced                                                                             
+target/series      :   stm32f4                                                                              
+workspace dir      :   C:\Users\LeeJH\AppData\Local\Temp\mxAI_workspace1962839430877005029411788835159001   
+output dir         :   C:\Users\LeeJH\.stm32cubemx\network_output                                           
+model_fmt          :   float                                                                                
+model_name         :   CNN2D_ST_HandPosture_8classes                                                        
+model_hash         :   0x207d3ca54e61755a72f3aed4ddf9d415                                                   
+params #           :   2,752 items (10.75 KiB)                                                              
+------------------------------------------------------------------------------------------------------------
+input 1/1          :   'input_1', f32(1x8x8x2), 512 Bytes, activations                                      
+output 1/1         :   'dense_1', f32(1x8), 32 Bytes, activations                                           
+macc               :   8,520                                                                                
+weights (ro)       :   11,008 B (10.75 KiB) (1 segment)                                                     
+activations (rw)   :   1,024 B (1024 B) (1 segment) *                                                       
+ram (total)        :   1,024 B (1024 B) = 1,024 + 0 + 0                                                     
+------------------------------------------------------------------------------------------------------------
 (*) 'input'/'output' buffers can be used from the activations buffer
 
 Model name - CNN2D_ST_HandPosture_8classes

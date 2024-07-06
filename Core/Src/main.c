@@ -26,6 +26,8 @@
 #include "app_sensor.h"
 #include "gwmz.h"
 #include "gestures_example.h"
+#include "RGB_control.h"
+
 
 /* USER CODE END Includes */
 
@@ -119,9 +121,7 @@ int main(void)
 	MX_TIM3_Init();
 	/* USER CODE BEGIN 2 */
 
-	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
-	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+	RGB_Control_init();
 
 	/* Perform HW configuration (sensor) related to the application  */
 	Sensor_Init(&App_Config);
@@ -157,22 +157,31 @@ int main(void)
 			/* Wait for available ranging data */
 			Sensor_GetRangingData(&App_Config);
 
-			/* Pre-process data */
-			Network_Preprocess(&App_Config);
-			/* Run inference */
-			Network_Inference(&App_Config);
-			/* Post-process data */
-			Network_Postprocess(&App_Config);
-			/* Print output */
-			//Comm_Print(&App_Config);
-
 			if (App_Config.new_data_received)
 			{
-				SEN_CopyRangingData(&sensor_data, &App_Config.RangingData);
+				if(!RGB_Control_Get_Menu())
+				{
+					/* Pre-process data */
+					Network_Preprocess(&App_Config);
+					/* Run inference */
+					Network_Inference(&App_Config);
+					/* Post-process data */
+					Network_Postprocess(&App_Config);
+					/* Print output */
+					//Comm_Print(&App_Config);
+					Network_RGB_Control_Process(&App_Config);
+				}
 
-				GW_run(&gest_predictor, &hand_tracker, &sensor_data);
+				if(RGB_Control_Get_Menu())
+				{
+					SEN_CopyRangingData(&sensor_data, &App_Config.RangingData);
 
-				Gesture_print_uart();
+					GW_run(&gest_predictor, &hand_tracker, &sensor_data);
+
+					Gesture_print_uart();
+
+					Gesture_RGB_Control_Process();
+				}
 			}
 		}
 	}

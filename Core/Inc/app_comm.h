@@ -34,6 +34,8 @@ void Comm_Start(AppConfig_TypeDef *);
 void Comm_HandleRxCMD(AppConfig_TypeDef *);
 void Comm_Print(AppConfig_TypeDef *);
 
+void Network_RGB_Control_Process(AppConfig_TypeDef *App_Config);
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *);
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *);
 
