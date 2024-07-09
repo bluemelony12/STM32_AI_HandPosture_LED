@@ -27,7 +27,6 @@
 extern AppConfig_TypeDef App_Config;
 
 /* Private macro -------------------------------------------------------------*/
-#define UART_COMM_BUFFER_SIZE                     (512)
 
 /* Array size of a static declared array */
 #ifndef ARRAY_SIZE
@@ -126,28 +125,28 @@ int SC_HandleCmd(const char *Buffer)
 	return (Status);
 }
 
-/**
- * @brief  COMM Print from UART to terminal
- * @param  App_Config_Ptr Pointer to application context
- * @retval None
- */
-static void Comm_PrintTerm(AppConfig_TypeDef *App_Config)
-{
-	printf("\x1b[2J");
-	printf("\x1b[1;1H");
-	printf("Hand Posture =  #%d {%s}                                          \r\n",
-			(int) (App_Config->AI_Data.handposture_label),
-			classes_table[(int) (App_Config->AI_Data.handposture_label)]);
-
-	for (int i = 0; i < AI_NETWORK_OUT_1_SIZE; i++)
-	{
-		printf("Class #%d {%s} : %f                                           \r\n",
-				i,
-				classes_table[i],
-				App_Config->aiOutData[i]);
-	}
-
-}
+///**
+// * @brief  COMM Print from UART to terminal
+// * @param  App_Config_Ptr Pointer to application context
+// * @retval None
+// */
+//static void Comm_PrintTerm(AppConfig_TypeDef *App_Config)
+//{
+//	printf("\x1b[2J");
+//	printf("\x1b[1;1H");
+//	printf("Hand Posture =  #%d {%s}                                          \r\n",
+//			(int) (App_Config->AI_Data.handposture_label),
+//			classes_table[(int) (App_Config->AI_Data.handposture_label)]);
+//
+//	for (int i = 0; i < AI_NETWORK_OUT_1_SIZE; i++)
+//	{
+//		printf("Class #%d {%s} : %f                                           \r\n",
+//				i,
+//				classes_table[i],
+//				App_Config->aiOutData[i]);
+//	}
+//
+//}
 
 /**
  * @brief  COMM Handle command
@@ -182,29 +181,6 @@ __attribute__((weak)) int __io_getchar(void)
 	return (status == HAL_OK ? ch : 0);
 }
 
-/**
- * @brief  COMM Initialization
- * @param  App_Config_Ptr Pointer to application context
- * @retval None
- */
-void Comm_Init(AppConfig_TypeDef *App_Config)
-{
-	/* UART2 initialization */
-	huart2.Instance = USART2;
-	huart2.Init.BaudRate = 921600;
-	huart2.Init.WordLength = UART_WORDLENGTH_8B;
-	huart2.Init.StopBits = UART_STOPBITS_1;
-	huart2.Init.Parity = UART_PARITY_NONE;
-	huart2.Init.Mode = UART_MODE_TX_RX;
-	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-	if (HAL_UART_Init(&huart2) != HAL_OK)
-	{
-		printf("UART init failed\n");
-		Error_Handler();
-	}
-
-}
 
 /**
  * @brief  COMM Start
@@ -230,23 +206,28 @@ void Comm_Start(AppConfig_TypeDef *App_Config)
  * @param  App_Config_Ptr Pointer to application context
  * @retval None
  */
-void Comm_Print(AppConfig_TypeDef *App_Config)
-{
-	/* If a new data need to be printed */
-	if (App_Config->new_data_received)
-	{
-		if (1 == App_Config->Params.gesture_gui)
-		{
+//void Comm_Print(AppConfig_TypeDef *App_Config)
+//{
+//	/* If a new data need to be printed */
+//	if (App_Config->new_data_received)
+//	{
+//		if (1 == App_Config->Params.gesture_gui)
+//		{
+//
+//		}
+//		else
+//		{
+//			/* Print the raw data */
+//			Comm_PrintTerm(App_Config);
+//		}
+//	}
+//}
 
-		}
-		else
-		{
-			/* Print the raw data */
-			Comm_PrintTerm(App_Config);
-		}
-	}
-}
-
+/**
+ * \fn void Network_RGB_Control_Process(AppConfig_TypeDef*)
+ * \brief Main process RGB led control with x-cube-ai
+ * \param App_Config
+ */
 void Network_RGB_Control_Process(AppConfig_TypeDef *App_Config)
 {
 	static uint8_t pdata_val = 0;
@@ -262,45 +243,50 @@ void Network_RGB_Control_Process(AppConfig_TypeDef *App_Config)
 	 * 6 : "CrossHands"
 	 * 7 : "Fist"};
 	 */
+
 	if (App_Config->new_data_received && RGB_Control_Get_Menu() == RGB_MENU_NONE)
 	{
+		/* Check handposture repeatedly */
 		ndata_val = App_Config->AI_Data.handposture_label;
 		if(ndata_val > 0 && ndata_val == pdata_val) data_cnt++;
 		else
 		{
 			if(data_cnt > 0) data_cnt = 0;
 		}
-
 		printf("label : %d, data_cnt : %d\r\n", App_Config->AI_Data.handposture_label, data_cnt);
 
+		/* if same handposture repeatedly 20 times, run main function */
 		if(data_cnt > 20)
 		{
 			switch (App_Config->AI_Data.handposture_label)
 			{
 				case 1:
-					printf("Run RGB LED Power ON\r\n");
+					printf("Check : FlatHand / Run RGB LED Power ON\r\n");
 					RGB_Control_Power_On();
 				break;
 
 				case 7:
-					printf("Run RGB LED Power OFF\r\n");
+					printf("Check : Fist / Run RGB LED Power OFF\r\n");
 					RGB_Control_Power_Off();
 				break;
 
 				case 2:
-					printf("Run RGB LED Color Set\r\n");
+					printf("Check : Like / Run RGB LED Color Set\r\n");
+					/* Delay for delete user movement */
 					HAL_Delay(500);
 					RGB_Control_Set_Menu(RGB_MENU_COLOR_SET);
 				break;
 
 				case 6:
-					printf("Run RGB LED Brightness Set Z-axis\r\n");
+					printf("Check : CrossHands / Run RGB LED Brightness Set Z-axis\r\n");
+					/* Delay for delete user movement */
 					HAL_Delay(500);
 					RGB_Control_Set_Menu(RGB_MENU_BRIGHTNESS_SET_Z);
 				break;
 
 				case 5:
-					printf("Run RGB LED Brightness Set Rotate\r\n");
+					printf("Check : BreakTime / Run RGB LED Brightness Set Rotate\r\n");
+					/* Delay for delete user movement */
 					HAL_Delay(500);
 					RGB_Control_Set_Menu(RGB_MENU_BRIGHTNESS_SET_R);
 				break;

@@ -8,8 +8,10 @@
 #ifndef INC_RGB_CONTROL_H_
 #define INC_RGB_CONTROL_H_
 
+/* Includes ------------------------------------------------------------------*/
 #include "stdint.h"
 
+/* Exported types ------------------------------------------------------------*/
 typedef enum
 {
 	RGB_OFF = 0,
@@ -26,7 +28,9 @@ typedef enum
 
 typedef enum
 {
+	/* Default Menu : Hand Posture Control */
 	RGB_MENU_NONE = 0,
+	/* Setting Menu : Hand Gesture Control */
 	RGB_MENU_COLOR_SET = 1,
 	RGB_MENU_BRIGHTNESS_SET_Z = 2,
 	RGB_MENU_BRIGHTNESS_SET_R = 3,
@@ -40,7 +44,7 @@ typedef struct
 	RGB_MENU menu;
 }RGB_CONFIG;
 
-
+/* Exported functions ------------------------------------------------------- */
 void RGB_Control_init(void);
 void RGB_Control_Power_On(void);
 void RGB_Control_Power_Off(void);

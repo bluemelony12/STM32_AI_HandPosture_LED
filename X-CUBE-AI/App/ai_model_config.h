@@ -25,9 +25,6 @@ If no LICENSE file comes with this software, it is provided AS-IS.\n"
 #define INPUT_WIDTH       8
 #define INPUT_CHANNELS    2
 
-/* Classes */
-#define CLASSES_TABLE 	const char* classes_table[NB_CLASSES] = {"None", "FlatHand", "Like", "Love", "Dislike", "BreakTime", "CrossHands", "Fist"};
-#define EVK_LABEL_TABLE const int evk_label_table[NB_CLASSES] = {0, 20, 21, 24, 25, 27, 28, 32};
 
 /* Pre_processing */
 #define BACKGROUND_REMOVAL 120

@@ -21,9 +21,9 @@ VL53LMZ_Configuration LMZDev;
 VL53LMZ_ResultsData RangingData;
 
 /* Gesture library variables -----------------------------------------------------------------*/
-GW_proc_t gest_predictor;
-HT_proc_t hand_tracker;
-SEN_data_t sensor_data;
+extern GW_proc_t gest_predictor;
+extern HT_proc_t hand_tracker;
+extern SEN_data_t sensor_data;
 
 // Function to get the first target data
 int* select_target_index(int *target_indices, int zone_index, VL53LMZ_ResultsData *pRangingData)
@@ -65,6 +65,7 @@ int SEN_CopyRangingData(SEN_data_t *pDest, VL53LMZ_ResultsData *pRangingData)
 
 	return 0;
 }
+
 
 // Function used to print the algo results on the UART port and the data are formatted to be read in a terminal (Tera Term for example)
 // The serial baudrate is 921600 by default in this example (see main.c)
@@ -111,15 +112,6 @@ void Gesture_print_uart(void)
 				hand_tracker.hand.hand_z,
 				gest_predictor.gesture.lc_polar_r,
 				gest_predictor.gesture.lc_polar_theta);
-
-		/*
-		 if(gest_predictor.gesture.lc_currentLevel > 10)
-		 {
-		 //htim3.Instance->CCR1 = 50; // red
-		 htim3.Instance->CCR3 = gest_predictor.gesture.lc_currentLevel - 1; // green
-		 //htim3.Instance->CCR4 = 0;  // blue
-		 }
-		 */
 	}
 	else if (gest_predictor.lc_state == LC_NONE)
 	{
@@ -135,11 +127,16 @@ void Gesture_print_uart(void)
 	}
 }
 
+/**
+ * \fn void Gesture_RGB_Control_Process(void)
+ * \brief Hand gesture RGB led control main process
+ */
 void Gesture_RGB_Control_Process(void)
 {
 	RGB_COLOR pcolor = 0;
 	float theta_to_val = 0;
 
+	/* Check Control menu is started */
 	switch (RGB_Control_Get_Menu())
 	{
 		case RGB_MENU_COLOR_SET:

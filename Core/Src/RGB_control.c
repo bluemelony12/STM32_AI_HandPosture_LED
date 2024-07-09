@@ -7,13 +7,16 @@
 #include "RGB_control.h"
 #include "stm32f4xx_hal.h"
 
+#define MAX_BRIGHTNESS		100
+#define MIN_BRIGHTNESS		10
+
 extern TIM_HandleTypeDef htim3;
 
 RGB_CONFIG rgb_config;
 
 /**
  * \fn void RGB_Control_init(void)
- * \brief
+ * \brief RGB led init
  */
 void RGB_Control_init(void)
 {
@@ -29,7 +32,7 @@ void RGB_Control_init(void)
 
 /**
  * \fn void RGB_Control_Power_On(void)
- * \brief
+ * \brief RGB led power on to configured brightness
  */
 void RGB_Control_Power_On(void)
 {
@@ -62,7 +65,7 @@ void RGB_Control_Power_On(void)
 
 /**
  * \fn void RGB_Control_Power_Off(void)
- * \brief
+ * \brief RGB led power off
  */
 void RGB_Control_Power_Off(void)
 {
@@ -77,7 +80,7 @@ void RGB_Control_Power_Off(void)
 
 /**
  * \fn void RGB_Control_Set_Brightness(uint8_t)
- * \brief
+ * \brief Set RGB led brightness
  * \param val
  */
 void RGB_Control_Set_Brightness(uint8_t val)
@@ -86,13 +89,11 @@ void RGB_Control_Set_Brightness(uint8_t val)
 		return;
 
 	rgb_config.state = RGB_ON;
-	if (val > 100)
-		val = 100;
-	else if (val < 10)
-		val = 10;
-	else
-	{
-	}
+	if (val > MAX_BRIGHTNESS)
+		val = MAX_BRIGHTNESS;
+	else if (val < MIN_BRIGHTNESS)
+		val = MIN_BRIGHTNESS;
+	else{}
 
 	rgb_config.Brightness = val;
 
@@ -129,7 +130,7 @@ uint8_t RGB_Control_Get_Brightness(void)
 
 /**
  * \fn void RGB_Control_Set_Color(RGB_COLOR)
- * \brief
+ * \brief Set RGB led color
  * \param color
  */
 void RGB_Control_Set_Color(RGB_COLOR color)

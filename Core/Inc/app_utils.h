@@ -68,112 +68,112 @@
 #define MAX_COMMAND_BUFFER_SIZE 776
 
 /* Exported types ------------------------------------------------------------*/
-struct pipe_grp__sort__cfg_t
-{
-  uint8_t sort__target_order;
-  uint8_t sort__cfg__pad_0;
-  uint8_t sort__cfg__pad_1;
-  uint8_t sort__cfg__pad_2;
-};
-
-/** @struct dci_grp__dss_cfg_t
-*   @brief DSS Configuration Parameters
-*   @{
-*/
-struct dci_grp__dss_cfg_t {
-  /**
-   * - max_value = 4095
-   * - min_value = 0
-   * - format = unsigned 12.4
-   * - units = Mcps
-   * - resolution = 0.0625
-  */
-  uint16_t dss__lower_target_rate_mcps;
-  /**
-   * - max_value = 4095
-   * - min_value = 0
-   * - format = unsigned 12.4
-   * - units = Mcps
-   * - resolution = 0.0625
-  */
-  uint16_t dss__upper_target_rate_mcps;
-  /**
-   * - max_value = 4095
-   * - min_value = 0
-   * - format = unsigned 12.4
-   * - units = effective SPAD's
-   * - resolution = 0.0625
-  */
-  uint16_t dss__initial_effective_spads;
-  /**
-   * - max_value = 4095
-   * - min_value = 0
-   * - format = unsigned 12.4
-   * - units = effective SPAD's
-   * - resolution = 0.0625
-  */
-  uint16_t dss__min_effective_spads;
-  /**
-   * - max_value = 4095
-   * - min_value = 0
-   * - format = unsigned 12.4
-   * - units = effective SPAD's
-   * - resolution = 0.0625
-  */
-  uint16_t dss__max_effective_spads;
-  /**
-   * - max_value = 2
-   * - min_value = 0
-   * - format = unsigned 2.0
-  */
-  uint8_t dss__additional_steps;
-  uint8_t dss__mode;
-  /**
-   * - max_value = 1
-   * - min_value = 0
-   * - format = unsigned 1.7
-   * - resolution = 0.0078
-  */
-  uint8_t dss__spatial_mode;
-  uint8_t dss_cfg__spare_0;
-  uint8_t dss_cfg__spare_1;
-  uint8_t dss_cfg__spare_2;
-};
-
-
-union dci_union__block_header_u {
-  uint32_t bytes;
-  struct {
-
-    uint32_t p_type : 4;
-
-    uint32_t b_size__p_rep : 12;
-
-    uint32_t b_idx__p_idx : 16;
-  };
-};
-
-struct dci_grp__rng_repeat_cfg_t {
-  uint16_t rng_repeat__ranging_rate_hz;
-  uint16_t rng_repeat__fw_per_range_overhead_us;
-};
-
-struct fw_grp__analogue_dynamic_t {
-  uint16_t pll_fm_depth;
-  uint16_t pll_fm_freq;
-  uint8_t vcsel_sel_ctrl_0;
-  uint8_t vcsel_sel_ctrl_1;
-  uint8_t vcsel_mon_ctrl;
-  uint8_t vcselcp_sel_ovrcur_ctrl;
-  uint8_t vcselcp_clk_range_sel;
-  uint8_t sequencer_output_delay;
-  uint8_t vcselcp_bootup_fsm_ext_en;
-  uint8_t vcsel_atest1_sel;
-  uint8_t vcselcp_mini_sel;
-  uint8_t vcselcp_reg_sel;
-  uint8_t analogue_dynamic_pad_0;
-  uint8_t analogue_dynamic_pad_1;
-};
+//struct pipe_grp__sort__cfg_t
+//{
+//  uint8_t sort__target_order;
+//  uint8_t sort__cfg__pad_0;
+//  uint8_t sort__cfg__pad_1;
+//  uint8_t sort__cfg__pad_2;
+//};
+//
+///** @struct dci_grp__dss_cfg_t
+//*   @brief DSS Configuration Parameters
+//*   @{
+//*/
+//struct dci_grp__dss_cfg_t {
+//  /**
+//   * - max_value = 4095
+//   * - min_value = 0
+//   * - format = unsigned 12.4
+//   * - units = Mcps
+//   * - resolution = 0.0625
+//  */
+//  uint16_t dss__lower_target_rate_mcps;
+//  /**
+//   * - max_value = 4095
+//   * - min_value = 0
+//   * - format = unsigned 12.4
+//   * - units = Mcps
+//   * - resolution = 0.0625
+//  */
+//  uint16_t dss__upper_target_rate_mcps;
+//  /**
+//   * - max_value = 4095
+//   * - min_value = 0
+//   * - format = unsigned 12.4
+//   * - units = effective SPAD's
+//   * - resolution = 0.0625
+//  */
+//  uint16_t dss__initial_effective_spads;
+//  /**
+//   * - max_value = 4095
+//   * - min_value = 0
+//   * - format = unsigned 12.4
+//   * - units = effective SPAD's
+//   * - resolution = 0.0625
+//  */
+//  uint16_t dss__min_effective_spads;
+//  /**
+//   * - max_value = 4095
+//   * - min_value = 0
+//   * - format = unsigned 12.4
+//   * - units = effective SPAD's
+//   * - resolution = 0.0625
+//  */
+//  uint16_t dss__max_effective_spads;
+//  /**
+//   * - max_value = 2
+//   * - min_value = 0
+//   * - format = unsigned 2.0
+//  */
+//  uint8_t dss__additional_steps;
+//  uint8_t dss__mode;
+//  /**
+//   * - max_value = 1
+//   * - min_value = 0
+//   * - format = unsigned 1.7
+//   * - resolution = 0.0078
+//  */
+//  uint8_t dss__spatial_mode;
+//  uint8_t dss_cfg__spare_0;
+//  uint8_t dss_cfg__spare_1;
+//  uint8_t dss_cfg__spare_2;
+//};
+//
+//
+//union dci_union__block_header_u {
+//  uint32_t bytes;
+//  struct {
+//
+//    uint32_t p_type : 4;
+//
+//    uint32_t b_size__p_rep : 12;
+//
+//    uint32_t b_idx__p_idx : 16;
+//  };
+//};
+//
+//struct dci_grp__rng_repeat_cfg_t {
+//  uint16_t rng_repeat__ranging_rate_hz;
+//  uint16_t rng_repeat__fw_per_range_overhead_us;
+//};
+//
+//struct fw_grp__analogue_dynamic_t {
+//  uint16_t pll_fm_depth;
+//  uint16_t pll_fm_freq;
+//  uint8_t vcsel_sel_ctrl_0;
+//  uint8_t vcsel_sel_ctrl_1;
+//  uint8_t vcsel_mon_ctrl;
+//  uint8_t vcselcp_sel_ovrcur_ctrl;
+//  uint8_t vcselcp_clk_range_sel;
+//  uint8_t sequencer_output_delay;
+//  uint8_t vcselcp_bootup_fsm_ext_en;
+//  uint8_t vcsel_atest1_sel;
+//  uint8_t vcselcp_mini_sel;
+//  uint8_t vcselcp_reg_sel;
+//  uint8_t analogue_dynamic_pad_0;
+//  uint8_t analogue_dynamic_pad_1;
+//};
 
 struct Params_t {
 	int gesture_gui;				// Enable a specific data logging on the Uart for the GUI

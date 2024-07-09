@@ -34,17 +34,15 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
-CLASSES_TABLE
-;
-EVK_LABEL_TABLE
-;
+/* Classes */
+const char* classes_table[NB_CLASSES] = {"None", "FlatHand", "Like", "Love", "Dislike", "BreakTime", "CrossHands", "Fist"};
 
 /* Application context */
 AppConfig_TypeDef App_Config;
 
-extern GW_proc_t gest_predictor;
-extern HT_proc_t hand_tracker;
-extern SEN_data_t sensor_data;
+GW_proc_t gest_predictor;
+HT_proc_t hand_tracker;
+SEN_data_t sensor_data;
 
 /* USER CODE END PTD */
 
@@ -121,6 +119,8 @@ int main(void)
 	MX_TIM3_Init();
 	/* USER CODE BEGIN 2 */
 
+	printf("Start Hand Posture and Gesture RGB Led Controller..\r\n");
+
 	RGB_Control_init();
 
 	/* Perform HW configuration (sensor) related to the application  */
@@ -135,9 +135,13 @@ int main(void)
 	/* Start communication */
 	Comm_Start(&App_Config);
 
+	/* Hand gesture lib init */
 	gesture_library_init_configure();
 
+	/* Sensor ranging start */
 	Sensor_StartRanging(&App_Config);
+
+	printf("Sensor init done..\r\n");
 
 	/* USER CODE END 2 */
 
@@ -159,27 +163,38 @@ int main(void)
 
 			if (App_Config.new_data_received)
 			{
+				/* Hand posture Menu start (Network) */
 				if(!RGB_Control_Get_Menu())
 				{
 					/* Pre-process data */
 					Network_Preprocess(&App_Config);
+
 					/* Run inference */
 					Network_Inference(&App_Config);
+
 					/* Post-process data */
 					Network_Postprocess(&App_Config);
+
 					/* Print output */
 					//Comm_Print(&App_Config);
+
+					/* Run Main Process (Hand posture) */
 					Network_RGB_Control_Process(&App_Config);
 				}
 
+				/* Hand gesture Menu start (Gesture algorithm) */
 				if(RGB_Control_Get_Menu())
 				{
+					/* Data set to gesture algorithm */
 					SEN_CopyRangingData(&sensor_data, &App_Config.RangingData);
 
+					/* Gesture algorithm Run */
 					GW_run(&gest_predictor, &hand_tracker, &sensor_data);
 
+					/* Print gesture algorithm result */
 					Gesture_print_uart();
 
+					/* Run Main Process (Gesture algorithm) */
 					Gesture_RGB_Control_Process();
 				}
 			}

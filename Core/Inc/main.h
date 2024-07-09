@@ -41,7 +41,6 @@ extern "C" {
 /* USER CODE BEGIN ET */
 
 extern const char *classes_table[NB_CLASSES];
-extern const int evk_label_table[NB_CLASSES];
 
 extern AppConfig_TypeDef App_Config;
 
@@ -88,7 +87,7 @@ void Error_Handler(void);
 #define TCK_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
-#define HANDPOSTURE_EXAMPLE_VERSION "1.1.0"
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
