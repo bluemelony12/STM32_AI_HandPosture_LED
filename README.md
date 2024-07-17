@@ -1,1 +1,5 @@
-HandPosture LED Control with STM32 AI, VL53L8C ToF Sensor
+**HandPosture LED Control with STM32 AI, VL53L8C ToF Sensor**  
+
+This project is the base of My STM32_AI_HandPosture_Demo project.  
+
+For project details, please refer My STM32_AI_HandPosture_Demo project.  
