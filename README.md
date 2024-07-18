@@ -2,4 +2,4 @@
 
 This project is the base of My STM32_AI_HandPosture_Demo project.  
 
-For project details, please refer My [STM32_AI_HandPosture_Demo project](https://github.com/bluemelony12/STM32_AI_HandPosture_Demo).  
+For project details, please visit My [STM32_AI_HandPosture_Demo project](https://github.com/bluemelony12/STM32_AI_HandPosture_Demo).  
